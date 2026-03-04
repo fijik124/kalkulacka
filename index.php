@@ -10,6 +10,23 @@ function e(string $text): string {
     return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 }
 
+function calculate(float $a, float $b, string $op, ?string &$error): ?float {
+    if ($op === '+') return $a + $b;
+    if ($op === '-') return $a - $b;
+    if ($op === '*') return $a * $b;
+
+    if ($op === '/') {
+        if ($b == 0) {
+            $error = 'Delenie nulou nie je povolené.';
+            return null;
+        }
+        return $a / $b;
+    }
+
+    $error = 'Neznáma operácia.';
+    return null;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $first  = $_POST['a'] ?? '';
     $second = $_POST['b'] ?? '';
@@ -20,22 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $a = (float) $first;
         $b = (float) $second;
-
-        if ($op === '+') {
-            $result = $a + $b;
-        } elseif ($op === '-') {
-            $result = $a - $b;
-        } elseif ($op === '*') {
-            $result = $a * $b;
-        } elseif ($op === '/') {
-            if ($b == 0) {
-                $error = 'Delenie nulou nie je povolené.';
-            } else {
-                $result = $a / $b;
-            }
-        } else {
-            $error = 'Neznáma operácia.';
-        }
+        $result = calculate($a, $b, $op, $error);
     }
 }
 ?>
