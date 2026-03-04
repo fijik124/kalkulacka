@@ -65,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <input type="text" name="b" placeholder="Druhé číslo" value="<?= e($second) ?>" required>
       <button type="submit">Vypočítať</button>
+      <button type="reset">Reset</button>
     </form>
 
     <?php if ($result !== null): ?>

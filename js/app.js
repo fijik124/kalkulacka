@@ -6,4 +6,10 @@ if (form) {
     const message = document.querySelector(".message");
     if (message) message.remove();
   });
+
+  form.addEventListener("reset", () => {
+    const message = document.querySelector(".message");
+    if (message) message.remove();
+  });
+
 }
